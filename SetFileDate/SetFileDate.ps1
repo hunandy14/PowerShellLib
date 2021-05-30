@@ -110,21 +110,25 @@ function GetFileItem {
 ############################ 設置 ############################
 cd $PSScriptRoot
 [String]$name = "day35_1. hibernate第三天回顾与目标.avi"
-[String]$date = "2021-05-12 12:00:00"
+[String]$date = "2021-05-14 12:00:00"
 
-[String]$FilePath = "C:\Users\hunan\Downloads\"
+[String]$FilePath = "C:\Users\hunan\Downloads\day37_代理模式、AOP编程、jdbc支持\视频"
 [String]$FilterFile = @("*.avi")
 [String]$FilterStr = "day37"
 ##############################################################
 # $newDate = NewDatetime $date
+$newDate = NewDatetime
 $List = (GetFileItem $FilePath -FilterFile $FilterFile) -match $FilterStr
 # $List.FullName
 
 # 單一檔案
+$name = "C:\Users\hunan\Downloads\day37_代理模式、AOP编程、jdbc支持"
 # SetFileDate $name -LastWriteTime $newDate -Preview
+# SetFileDate $name -LastWriteTime $newDate
 # SetFileDate $name -AllTime $newDate -Preview
 
 # 資料夾
 foreach ($item in $List) {
-    SetFileDate $item.FullName -LastWriteTime $newDate -Preview
+    # SetFileDate $item.FullName -LastWriteTime $newDate -Preview
+    # SetFileDate $item.FullName -LastWriteTime $newDate
 }
