@@ -15,9 +15,45 @@ function readBin {
         $textBin -join " "
     }
     
-    # return $charBuf
+    return $charBuf
 }
 
-readBin "0.docx" 10 -Preview
+$file_FullName = "C:\Users\hunan\OneDrive\Git Repository\PowerShellLib\ReadBinFile\0.docx";
+readBin $file_FullName 10 -Preview
 
+
+
+
+
+function GetLineAt([String] $path, [Int32] $index)
+{
+    # StreamReader(String, Boolean) constructor
+    # http://msdn.microsoft.com/library/9y86s1a9.aspx
+    [System.IO.StreamReader] $reader = New-Object `
+        -TypeName 'System.IO.StreamReader' `
+        -ArgumentList ($path, $true);
+    [String] $line = $null;
+    [Int32] $currentIndex = 0;
+
+    try
+    {
+        while (($line = $reader.ReadLine()) -ne $null)
+        {
+            if ($currentIndex++ -eq $index)
+            {
+                return $line;
+            }
+        }
+    }
+    finally
+    {
+        $reader.Close();
+    }
+
+    # There are less than ($index + 1) lines in the file
+    return $null;
+}
+
+$file_FullName = "C:\Users\hunan\OneDrive\Git Repository\PowerShellLib\ReadBinFile\0.docx";
+GetLineAt $file_FullName 0;
 
