@@ -66,14 +66,19 @@ function Set-FileDate_dir {
         [String]$cmdLine
     )
     if ($AllTime) {
-        Write-Host "@@@@@sroptjgnipeorthg@@@@"
         if($CreationTime -eq "") {
             $CreationTime = $LastWriteTime
         } if($LastAccessTime -eq "") {
             $LastAccessTime = $LastWriteTime
         }
     }
-    $collection = Get-ChildItem $srcPath -I $Filter
+    # 當前層資料夾    : 只有檔案 -File
+    $collection = Get-ChildItem $srcPath -I $Filter -File
+    # 當前層資料夾    : 只有目錄 -Dir
+    # $collection = Get-ChildItem $srcPath -I $Filter -Directory
+    # 所有層資料夾 -R : 所有項目
+    # $collection = Get-ChildItem $srcPath -I $Filter -R
+    
     foreach ($item in $collection) {
         if ($CreationTime) {
             $item.CreationTime = $CreationTime
@@ -86,17 +91,10 @@ function Set-FileDate_dir {
 }
 
 
-$date = "2021-10-30 00:00:1"
-$date2 = "2021-10-30 00:00:02"
-$date3 = "2021-10-30 00:00:03"
+$date = "1999-01-01 00:00:00"
 $path = $PSScriptRoot
-# (Get-Item .\Test.md).LastWriteTime
-
 
 Set-FileDate_dir $path $date
-
-
-
 Get-FileDate_dir $path
 
 
